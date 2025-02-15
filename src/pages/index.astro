@@ -17,6 +17,7 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
+const shouldShowRSS = false
 ---
 
 <Layout>
@@ -24,23 +25,28 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <main id="main-content">
     <section id="hero">
       <h1>Megalith</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon">
-          <path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z" />
-          <path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z" />
-          <circle cx="6" cy="18" r="2" />
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      {
+        shouldShowRSS && (
+          <a
+            target="_blank"
+            href="/rss.xml"
+            class="rss-link"
+            aria-label="rss feed"
+            title="RSS Feed"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon">
+              <path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z" />
+              <path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z" />
+              <circle cx="6" cy="18" r="2" />
+            </svg>
+            <span class="sr-only">RSS Feed</span>
+          </a>
+        )
+      }
 
       <p>
-        Hey, welcome back. I have waited here for you, for so long.
+        Hey, you’re the one that I wanted to find.
+        I have waited here for you, for so long.
         I've missed you. I feel like we don't know each other anymore.
       </p>
       <br/>
@@ -50,26 +56,30 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       <br/>
       <p>
         Or am I getting you mixed up... It really has been that long.
-        That's all behind us now.
+        But that's all behind us now.
+      </p>
+      <br/>
+      <p>
         The energy lies in learning, anyway.
         So, I'm learning to be better.
         <span style="font-weight: bold;">For you, to you.</span>
       </p>
       <br/>
       <p>
-        What's due is all praise.
+        <span style="font-weight: bold;">What's due is all praise.</span>
       </p>
-      <p>
-        Read the blog posts or check
-        <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
+
+      <!--<p>-->
+      <!--  Read the blog posts or check-->
+      <!--  <LinkButton-->
+      <!--    className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"-->
+      <!--    href="https://github.com/satnaing/astro-paper#readme"-->
+      <!--  >-->
+      <!--    README-->
+      <!--  </LinkButton> for more info.-->
+      <!--</p>-->
+
       {
-        // only display if at least one social link is enabled
         socialCount > 0 && (
           <div class="social-wrapper">
             <div class="social-links">Social Links:</div>
