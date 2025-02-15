@@ -24,7 +24,16 @@ const shouldShowRSS = false
   <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>Megalith</h1>
+      <h1>
+        Megalith
+        <small>
+          <small>
+            <small>
+              - A monument to all things me, you, and all between.
+            </small>
+          </small>
+        </small>
+      </h1>
       {
         shouldShowRSS && (
           <a
@@ -82,7 +91,7 @@ const shouldShowRSS = false
       {
         socialCount > 0 && (
           <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
+            <div class="social-links">My socials!:</div>
             <Socials />
           </div>
         )

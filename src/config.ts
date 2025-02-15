@@ -1,7 +1,7 @@
 import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
+  website: "https://github.com/Yug34", // replace this with your deployed domain
   author: "Yug Gajjar",
   profile: "https://github.com/Yug34",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
@@ -33,12 +33,6 @@ export const LOGO_IMAGE = {
 
 export const SOCIALS: SocialObjects = [
   {
-    name: "Github",
-    href: "https://github.com/Yug34/",
-    linkTitle: ` ${SITE.title} on Github`,
-    active: true,
-  },
-  {
     name: "Instagram",
     href: "https://www.instagram.com/stfyug_/",
     linkTitle: `${SITE.title} on Instagram`,
@@ -51,10 +45,10 @@ export const SOCIALS: SocialObjects = [
     active: true,
   },
   {
-    name: "Mail",
-    href: "mailto:yug.gjr@gmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    active: false,
+    name: "Github",
+    href: "https://github.com/Yug34/",
+    linkTitle: ` ${SITE.title} on Github`,
+    active: true,
   },
   {
     name: "X",
@@ -121,5 +115,11 @@ export const SOCIALS: SocialObjects = [
     href: "https://github.com/satnaing/astro-paper",
     linkTitle: `${SITE.title} on Mastodon`,
     active: false,
+  },
+  {
+    name: "Mail",
+    href: "mailto:yug.gjr@gmail.com",
+    linkTitle: `Send an email to ${SITE.title}`,
+    active: true,
   },
 ];
