@@ -44,4 +44,4 @@ Every time she sat with me to solder a PCB or debug a motherboard;
 
 She made sure that the spark stays.
 
-The largest privilege that I've had in this life, has been the privilege to be her legate!
+The largest honor that I've had in this life, has been chance to be her legate!
