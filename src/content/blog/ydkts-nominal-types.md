@@ -186,3 +186,5 @@ let postId = PostId('id2')
 ```
 
 And with just that, `Achievement Unlocked!: Type-safety in TypeScript`.
+
+Cheers! 🥂
