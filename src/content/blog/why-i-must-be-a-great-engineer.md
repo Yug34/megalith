@@ -36,9 +36,6 @@ April 12th, 2001;
 I don't think she lost her spark that day;
 She passed it on to me.
 
-I bear her torch.
+She made sure the spark stays, every time she gave a real answer to my "How many stars are there in the sky?"
 
-It’s a privilege to be her legate.
-
-Soon, my reputation should precede me.
-
+It’s a privilege to be her legate!
