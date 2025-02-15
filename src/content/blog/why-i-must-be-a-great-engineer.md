@@ -37,8 +37,10 @@ April 12th, 2001;
 I don't think she lost her spark that day;
 She passed it on to me.
 
-And she always made sure that the spark stays.
+Every time she gave a real answer to my _"Mom, how many stars are there in the sky?"_,
 
-Every time she gave a real answer to my "Mom, how many stars are there in the sky?"
+And every time she sat with me to solder a PCB, debug a motherboard;
 
-It’s a privilege to be her legate!
+She made sure that the spark stays.
+
+The largest privilege that I've had in this life, has been the privilege to be her legate!
