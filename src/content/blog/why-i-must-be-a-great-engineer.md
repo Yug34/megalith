@@ -35,11 +35,12 @@ Anything less than absolute excellence, is a failure.
 April 12th, 2001;
 
 I don't think she lost her spark that day;
-She passed it on to me.
 
-Every time she gave a real answer to my _"Mom, how many stars are there in the sky?"_,
+I like to think she passed it on to me.
 
-And every time she sat with me to solder a PCB, debug a motherboard;
+And every time she gave a real answer to my _"Mom, how many stars are there in the sky?"_;
+
+Every time she sat with me to solder a PCB or debug a motherboard;
 
 She made sure that the spark stays.
 
