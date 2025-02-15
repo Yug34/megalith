@@ -7,7 +7,7 @@ slug: why-i-must-be-a-great-engineer
 featured: true
 draft: false
 tags:
-  - docs
+  - life
 description:
   I don't owe anything to anyone... or do I?
 ---
