@@ -20,7 +20,7 @@ It’s because I owe it to my mother.
 
 <hr />
 
-My mom gave up on pursuing physics because of motherhood. If I come into this world, I think she would’ve been one of the very best in her field.
+My mom gave up on pursuing physics because of motherhood. If I hadn't come into this world, I think she would’ve been one of the very best in her field.
 
 She had the conviction to stick through with it and get a master’s degree;
 
