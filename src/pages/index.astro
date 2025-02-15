@@ -24,16 +24,12 @@ const shouldShowRSS = false
   <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>
-        Megalith
-        <small>
-          <small>
-            <small>
-              - A monument to all things me, you, and all between.
-            </small>
-          </small>
-        </small>
-      </h1>
+      <div class="flex justify-start items-end mb-6 gap-x-6">
+        <h1 style="margin-bottom: 0;">
+          Megalith
+        </h1>
+        <span>A monument to all things me, you, and all between.</span>
+      </div>
       {
         shouldShowRSS && (
           <a
