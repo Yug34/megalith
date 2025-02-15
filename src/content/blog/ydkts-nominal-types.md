@@ -79,7 +79,7 @@ userId = postId // <-- TS will catch this, and won't allow it! :)
 
 Finally, now the variables in your projects are compatible if and only if they have the exact same types.
 
-But let's take this a step further...
+### But let's take this a step further...
 
 Now your types aren't just structural and have a real identity other than the members contained in the type. The type itself makes the variables unique.
 

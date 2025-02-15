@@ -18,6 +18,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
 const shouldShowRSS = false
+const shouldShowMyStuff = false
 ---
 
 <Layout>
@@ -100,7 +101,7 @@ const shouldShowRSS = false
       featuredPosts.length > 0 && (
         <>
           <section id="featured">
-            <h2>Featured</h2>
+            <h2>Featured blogs</h2>
             <ul>
               {featuredPosts.map(({ data, slug }) => (
                 <Card
@@ -146,6 +147,67 @@ const shouldShowRSS = false
         </svg>
       </LinkButton>
     </div>
+
+    {
+      shouldShowMyStuff && (
+        <>
+          <Hr />
+
+          <section class="sectionList">
+            <h2>
+              Reading notes
+            </h2>
+            <ul>
+              <li>SICP</li>
+            </ul>
+          </section>
+
+          <Hr />
+
+          <section class="sectionList">
+            <h2>
+              Albums
+            </h2>
+            <ul>
+              <li>Hybrid Theory</li>
+              <li>Meteora</li>
+              <li>All Our Gods Have Abandoned Us</li>
+              <li>Lost Forever // Lost Together</li>
+              <li>Holy Hell</li>
+              <li>For Those That Wish To Exist</li>
+              <li>This Place Will Become Your Tomb</li>
+              <li>Take Me Back To Eden</li>
+            </ul>
+          </section>
+
+          <Hr />
+
+          <section class="sectionList">
+            <h2>
+              Games
+            </h2>
+            <ul>
+              <li>Halo</li>
+              <li>Fallout</li>
+              <li>Unreal Tournament</li>
+              <li>Quake</li>
+              <li>DOOM</li>
+            </ul>
+          </section>
+
+          <Hr />
+
+          <section class="sectionList">
+            <h2>
+              Shows, movies
+            </h2>
+            <ul>
+              <li>Trailer Park Boys</li>
+            </ul>
+          </section>
+        </>
+      )
+    }
   </main>
 
   <Footer />
@@ -177,11 +239,13 @@ const shouldShowRSS = false
 
   /* ===== Featured & Recent Posts Sections ===== */
   #featured,
-  #recent-posts {
+  #recent-posts,
+  .sectionList {
     @apply pb-6 pt-12;
   }
   #featured h2,
-  #recent-posts h2 {
+  #recent-posts h2,
+  .sectionList h2 {
     @apply text-2xl font-semibold tracking-wide;
   }
   .all-posts-btn-wrapper {

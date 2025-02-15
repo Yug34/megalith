@@ -9,7 +9,7 @@ draft: false
 tags:
   - life
 description:
-  I don't owe anything to anyone... or do I?
+  I don't owe it to anyone... or do I?
 ---
 
 It’s not because I love money, though it's good to have.
@@ -43,5 +43,7 @@ And every time she gave a real answer to my _"Mom, how many stars are there in t
 Every time she sat with me to solder a PCB or debug a motherboard;
 
 She made sure that the spark stays.
+
+I've been raised knowing there's something really fucking badass about diving deep into a topic and being a nerd about it.
 
 The largest honor that I've had in this life, has been chance to be her legate!
