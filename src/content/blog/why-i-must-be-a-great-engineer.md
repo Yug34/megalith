@@ -33,9 +33,12 @@ So when I am birthed with the advantage of a better environment, gifted with the
 Anything less than absolute excellence, is a failure.
 
 April 12th, 2001;
+
 I don't think she lost her spark that day;
 She passed it on to me.
 
-She made sure the spark stays, every time she gave a real answer to my "How many stars are there in the sky?"
+And she always made sure that the spark stays.
+
+Every time she gave a real answer to my "Mom, how many stars are there in the sky?"
 
 It’s a privilege to be her legate!
