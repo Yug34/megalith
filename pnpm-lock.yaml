@@ -41,9 +41,6 @@ importers:
       typescript:
         specifier: ^5.5.3
         version: 5.7.3
-      wasm-game-of-life:
-        specifier: file:./wasm-game-of-life/pkg
-        version: file:wasm-game-of-life/pkg
     devDependencies:
       '@astrojs/react':
         specifier: ^3.6.2
@@ -2901,9 +2898,6 @@ packages:
 
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
-
-  wasm-game-of-life@file:wasm-game-of-life/pkg:
-    resolution: {directory: wasm-game-of-life/pkg, type: directory}
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
@@ -6112,8 +6106,6 @@ snapshots:
   vscode-nls@5.2.0: {}
 
   vscode-uri@3.1.0: {}
-
-  wasm-game-of-life@file:wasm-game-of-life/pkg: {}
 
   web-namespaces@2.0.1: {}
 
