@@ -5,6 +5,8 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,6 +39,13 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
+    },
+    plugins: [
+      wasm(),
+      topLevelAwait()
+    ],
+    build: {
+      target: 'esnext'
     },
   },
   scopedStyleStrategy: "where",
