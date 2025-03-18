@@ -12,11 +12,9 @@ description:
   Better testing
 ---
 
-## Code that tests itself: `Assert`ing your assumptions
-
 ### Preface
 
-I've got you with this catchy title, but give me half a minute; really quickly, I want to give
+I've got you with this catchy title, but give me a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
 A feature that we're working on happened to be untestable with
@@ -38,6 +36,10 @@ So we needed to come up with a way to test if:
 
 We threw the tests INTO the code that we wrote, as opposed to running CI workflows for
 unit tests or E2E tests.
+
+The outcomes were:
+
+- 
 
 ### Enter: Assertions
 
