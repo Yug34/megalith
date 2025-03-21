@@ -37,10 +37,10 @@ The outcomes were:
 - The state of the front-end app is correct and is never something we don't expect.
 - The assumptions that we make about our code and it's state are correct.
 
-We essentially defined a set of "allowed behaviours" that the app's state system should operate in.
-And any time the app does something that we don't expect, we act on it.
+We essentially defined a set of "allowed behaviours" that the app should operate in.
+And any time the app does something that we don't expect, we know exactly what to fix.
 
-How did we do that?
+So, how did we do that?
 
 ### Enter: Assertions
 
@@ -52,6 +52,18 @@ How did we do that?
     (Error tracking and monitoring just like Sentry
     (Comments get stale, assertions don't, they will throw
 )
+
+
+```ts
+type Foo = {
+  bar?: number
+}
+
+const morphFoo = (foo: Foo) => {
+  console.assert(foo.bar !== undefined, "foo must exist")
+  return foo.bar * 5
+}
+```
 
 ```ts
 const env = import.meta.env.MODE
