@@ -29,15 +29,16 @@ so is simulating click events because that needs coordinate-based positioning.
 ...so, we made it so the code tests itself.
 
 We threw the tests INTO the code that we wrote, as opposed to running CI workflows for
-unit tests or E2E tests.
+unit tests or E2E tests. This also means that the tests run during the app's run-time.
 
 The outcomes were:
+- We were able to test if what we rendered onto the canvas was actually correct. 
+- Make sure that the data we are fetching from the back-end is of the correct form.
+- The state of the front-end app is correct and is never something we don't expect.
+- The assumptions that we make about our code and it's state are correct.
 
-We were able to test if:
-- What we were rendering onto the canvas was actually correct. 
-- The data we are fetching from the back-end is of the correct form.
-- The state of the app on the front-end is correct.
-- The assumptions that we are making while developing the feature about our code and it's state are correct.
+We essentially defined a set of "allowed behaviours" that the app's state system should operate in.
+And any time the app does something that we don't expect, we act on it.
 
 How did we do that?
 
@@ -51,3 +52,33 @@ How did we do that?
     (Error tracking and monitoring just like Sentry
     (Comments get stale, assertions don't, they will throw
 )
+
+```ts
+const env = import.meta.env.MODE
+const isDev = env === 'development'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noOp = () => {}
+
+const createAssertFn = (shouldRun) => (shouldRun ? console.assert : noOp)
+
+const createTrackErrorFn = (shouldRun) =>
+    shouldRun
+        ? (condition, ...args) => {
+              if (!condition) {
+                  trackEvent('assertion_failed', {
+                      programState: args,
+                  })
+              }
+          }
+        : noOp
+
+export const useAssert = () => {
+    return {
+        assertFnDev: createAssertFn(isDev),
+        assertFn: createAssertFn(!isDev),
+        assertTrackErrorDev: createTrackErrorFn(isDev),
+        assertTrackError: createTrackErrorFn(!isDev),
+    }
+}
+```
