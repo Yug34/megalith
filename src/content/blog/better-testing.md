@@ -17,20 +17,14 @@ description:
 I've got you with this catchy title, but give me a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
-A feature that we're working on happened to be untestable with
-unit tests and E2E test suites; we were developing a Directed Acyclic Graph (DAG)
+A feature that we're working on happened to be un-testable with
+Vitest unit tests and Playwright E2E test suites; we were developing a Directed Acyclic Graph (DAG)
 renderer on the front-end that renders nodes and edges into an HTML `<canvas>` element.
 
-Of course, because we were rendering into the canvas, it was difficult to test
-our feature due to `<canvas>`'s lack of DOM representation. 
-Screenshot comparison or pixel-based verification is obviously very difficult,
-and so is simulating click events because those needed coordinate-based positioning.
-
-So we needed to come up with a way to test if:
-- What we were rendering onto the canvas was actually correct. 
-- The data we are fetching from the back-end is of the correct form.
-- The state of the app on the front-end is correct.
-- The assumptions that we are making while developing the feature about our code and it's state are correct.
+Because we were rendering into the canvas, it was difficult to test
+our feature due to `<canvas>`'s lack of DOM representation.
+Screenshot comparison or pixel-based verification is difficult,
+so is simulating click events because that needs coordinate-based positioning.
 
 ...so, we made it so the code tests itself.
 
@@ -39,11 +33,15 @@ unit tests or E2E tests.
 
 The outcomes were:
 
-- 
+We were able to test if:
+- What we were rendering onto the canvas was actually correct. 
+- The data we are fetching from the back-end is of the correct form.
+- The state of the app on the front-end is correct.
+- The assumptions that we are making while developing the feature about our code and it's state are correct.
+
+How did we do that?
 
 ### Enter: Assertions
-
-
 
 [//]: # (
     How assertions help with testing <canvas>
