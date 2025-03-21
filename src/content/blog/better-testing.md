@@ -44,15 +44,8 @@ So, how did we do that?
 
 ### Enter: Assertions
 
-[//]: # (
-    How assertions help with testing <canvas>
-    (Code correctness / making sure your assumptions are correct
-    (Make sure the state of the data is correct
-    (Code is actually tested during the run-time as opposed to a CI workflow
-    (Error tracking and monitoring just like Sentry
-    (Comments get stale, assertions don't, they will throw
-)
-
+When we write code, we tend to make reasonable assumptions about the environment we are writing the code in.
+We enforce the code that we write to 
 
 ```ts
 type Foo = {
