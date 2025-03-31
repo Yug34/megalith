@@ -4,8 +4,8 @@ pubDatetime: 2025-02-21T15:22:00Z
 modDatetime: 2025-02-21T09:12:47.400Z
 title: Identity Solace
 slug: identity-solace
-featured: true
-draft: false
+featured: false
+draft: true
 tags:
   - life
 description:

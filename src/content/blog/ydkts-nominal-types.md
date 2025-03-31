@@ -1,7 +1,7 @@
 ---
 author: Yug Gajjar
-pubDatetime: 2025-02-15T15:22:00Z
-modDatetime: 2025-02-15T09:12:47.400Z
+pubDatetime: 2023-10-15T09:22:00Z
+modDatetime: 2023-10-15T09:12:47.400Z
 title: "YDKTS: Nominal Types"
 slug: ydkts-nominal-types
 featured: true
