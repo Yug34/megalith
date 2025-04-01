@@ -18,12 +18,13 @@ I've got you with this catchy title, but give me a minute; really quickly, I wan
 you some background on the way we at Atlan fixed our testing troubles.
 
 A feature that we were working on happened to be un-testable with
-unit tests and E2E tests suites; we were developing a Directed Acyclic Graph (DAG)
-renderer on the front-end that renders nodes and edges into an HTML `<canvas>` element.
+unit tests and E2E tests suites; we were developing a Directed Graph (Digraph)
+renderer on the front-end that paints nodes and edges into an HTML `<canvas>` element. It looks
+something like this:
 
 ![Lineage](../../assets/images/lineage.png)
 
-Because we were rendering into the canvas, it was difficult to test
+Since we were rendering into the canvas, it was difficult to test
 our feature due to `<canvas>`'s lack of DOM representation.
 Screenshot comparison or pixel-based verification is difficult,
 so is simulating click events because that needs coordinate-based positioning.
@@ -41,6 +42,7 @@ The outcomes were:
 
 We essentially defined a set of "allowed behaviours" that the app should operate in.
 And any time the app does something that we don't expect, we know exactly what to fix.
+We defined a "happy path" and made sure we know when the app diverges from it.
 
 So, how did we do that?
 
@@ -49,7 +51,7 @@ So, how did we do that?
 When we write code, we tend to make reasonable assumptions about the code and
 the environment we are writing the code in.
 
-These assumptions could be about the state of your system, the data within the system and how it permeates through,
+These assumptions could be about the state of your system, the data within the system and how it is passed around,
 what functions expect as input and are expected to output, their interfacing, and so on.
 
 Sometimes, these assumptions are wrong and this results in developer errors.
@@ -73,7 +75,9 @@ type Foo = {
 const factorialFoo = (foo: Foo) => {
   console.assert(Number.isInteger(foo.bar), "bar must exist and must be an integer")
   console.assert(foo.bar > 0, "bar must be positive")
-  return factorial(foo.bar) // We assume this function is already defined elsewhere
+
+  // We now proceed with the confidence that our assumptions are true
+  return factorial(foo.bar)
 }
 
 const invalidFoo = { bar: 5.2 }
@@ -96,37 +100,62 @@ what conditions must be true for our function to work as expected:
 
 Any time these assumptions are false, `console.assert` will tell you that the assertion is failing.
 
-Looking at the type definition `Foo` you might not have any information to go off of about `bar`, so instead of making
+Looking at the type definition `Foo` you don't have any information to go off of about `bar`, so instead of making
 safeguards for all that `bar` could be, **you assert exactly what it _should be_**.
 
-This isn't yet using assertions to their full capacity. But before I get to it, here's a
-slightly more powerful version of `assert()`:
+[//]: # (This isn't yet using assertions to their full capacity. But before I get to it, here's a)
 
-```ts
-const env = import.meta.env.MODE
-const isDev = env === 'development'
+[//]: # (slightly more powerful version of `assert&#40;&#41;`:)
 
-const noOp = () => {}
+[//]: # ()
+[//]: # (```ts)
 
-const createAssertFn = (shouldRun) => (shouldRun ? console.assert : noOp)
+[//]: # (const env = import.meta.env.MODE)
 
-const createTrackErrorFn = (shouldRun) =>
-    shouldRun
-        ? (condition, ...args) => {
-              if (!condition) {
-                  trackEvent('assertion_failed', {
-                      programState: args,
-                  })
-              }
-          }
-        : noOp
+[//]: # (const isDev = env === 'development')
 
-export const useAssert = () => {
-    return {
-        assertFnDev: createAssertFn(isDev),
-        assertFn: createAssertFn(!isDev),
-        assertTrackErrorDev: createTrackErrorFn(isDev),
-        assertTrackError: createTrackErrorFn(!isDev),
-    }
-}
-```
+[//]: # ()
+[//]: # (const noOp = &#40;&#41; => {})
+
+[//]: # ()
+[//]: # (const createAssertFn = &#40;shouldRun&#41; => &#40;shouldRun ? console.assert : noOp&#41;)
+
+[//]: # ()
+[//]: # (const createTrackErrorFn = &#40;shouldRun&#41; =>)
+
+[//]: # (    shouldRun)
+
+[//]: # (        ? &#40;condition, ...args&#41; => {)
+
+[//]: # (              if &#40;!condition&#41; {)
+
+[//]: # (                  trackEvent&#40;'assertion_failed', {)
+
+[//]: # (                      programState: args,)
+
+[//]: # (                  }&#41;)
+
+[//]: # (              })
+
+[//]: # (          })
+
+[//]: # (        : noOp)
+
+[//]: # ()
+[//]: # (export const useAssert = &#40;&#41; => {)
+
+[//]: # (    return {)
+
+[//]: # (        assertFnDev: createAssertFn&#40;isDev&#41;,)
+
+[//]: # (        assertFn: createAssertFn&#40;!isDev&#41;,)
+
+[//]: # (        assertTrackErrorDev: createTrackErrorFn&#40;isDev&#41;,)
+
+[//]: # (        assertTrackError: createTrackErrorFn&#40;!isDev&#41;,)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (```)
