@@ -44,8 +44,23 @@ So, how did we do that?
 
 ### Enter: Assertions
 
-When we write code, we tend to make reasonable assumptions about the environment we are writing the code in.
-We enforce the code that we write to 
+When we write code, we tend to make reasonable assumptions about the code and
+the environment we are writing the code in.
+
+These assumptions could be about the state of your system, the data within the system and how it permeates through,
+what functions expect as input and are expected to output, their interfacing, and so on.
+
+Sometimes, these assumptions are wrong and this results in developer errors.
+
+Assertions are a way to enforce correctness into your code, and do it such that your code itself screams
+at you when it is doing something you didn't expect it to, or when it is working with something you did
+not expect it to.
+
+This also results in a subtle difference in the way that you think of testing:
+- With unit tests, you think about, and account for edge cases and make sure they are handled properly.
+- With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
+
+Here's a very simple example of an assertion in action:
 
 ```ts
 type Foo = {
@@ -62,7 +77,6 @@ const morphFoo = (foo: Foo) => {
 const env = import.meta.env.MODE
 const isDev = env === 'development'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noOp = () => {}
 
 const createAssertFn = (shouldRun) => (shouldRun ? console.assert : noOp)
