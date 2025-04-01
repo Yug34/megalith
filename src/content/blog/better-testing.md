@@ -17,9 +17,11 @@ description:
 I've got you with this catchy title, but give me a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
-A feature that we're working on happened to be un-testable with
-Vitest unit tests and Playwright E2E test suites; we were developing a Directed Acyclic Graph (DAG)
+A feature that we were working on happened to be un-testable with
+unit tests and E2E tests suites; we were developing a Directed Acyclic Graph (DAG)
 renderer on the front-end that renders nodes and edges into an HTML `<canvas>` element.
+
+![Lineage](../../assets/images/lineage.png)
 
 Because we were rendering into the canvas, it was difficult to test
 our feature due to `<canvas>`'s lack of DOM representation.
