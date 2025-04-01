@@ -60,7 +60,8 @@ This also results in a subtle difference in the way that you think of testing:
 - With unit tests, you account for edge cases and make sure they are handled properly.
 - With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
 
-Here's a very simple example of an assertion using `console.assert`:
+We'll move on to much more powerful examples of assertions, but let's start with
+some really simple assertions just using `console.assert`, before we get to the heart of it:
 
 ```ts
 type Foo = {
@@ -69,7 +70,7 @@ type Foo = {
 
 const factorialFoo = (foo: Foo) => {
   console.assert(Number.isInteger(foo.bar), "bar must exist and must be an integer")
-  console.assert(foo.bar >= 0, "bar must be positive or 0")
+  console.assert(foo.bar > 0, "bar must be positive")
   return factorial(foo.bar) // We assume this function is already defined elsewhere
 }
 
@@ -77,9 +78,8 @@ const invalidFoo = { bar: 5.2 }
 factorialFoo(invalidFoo)        // Assertion failed: bar must exist and must be an integer
 
 // Similarly...
-factorialFoo({ bar: '14.6' })   // Assertion failed: bar must exist and must be an integer
 factorialFoo({})                // Assertion failed: bar must exist and must be an integer
-factorialFoo({ bar: -5 })       // Assertion failed: bar must be positive or 0
+factorialFoo({ bar: -5 })       // Assertion failed: bar must be positive
 
 const validFoo = { bar: 5 }
 factorialFoo(validFoo)          // 120
@@ -88,14 +88,17 @@ factorialFoo(validFoo)          // 120
 So what just happened here?
 
 We wrote two assertions within our function definition that state exactly
-what conditions must be true for our function to work:
+what conditions must be true for our function to work as expected:
 
 `"bar must exist and must be an integer"` and `"bar must be positive or 0"`.
 
 Any time these assumptions are false, `console.assert` will tell you that the assertion is failing.
 
 Looking at the type definition `Foo` you might not have any information to go off of about `bar`, so instead of making
-safeguards for all that `bar` could be, you assert exactly what it **should** be, for your code to work.
+safeguards for all that `bar` could be, **you assert exactly what it _should be_**.
+
+This isn't yet using assertions to their full capacity. But before I get to it, here's a
+slightly more powerful version of `assert()`:
 
 ```ts
 const env = import.meta.env.MODE
