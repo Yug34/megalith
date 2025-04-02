@@ -12,14 +12,14 @@ description:
   Better testing
 ---
 
-### Preface
+# Preface
 
 I've got you with this catchy title, but give me a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
 A feature that we were working on happened to be un-testable with
-unit tests and E2E tests suites; we were developing a Directed Graph (Digraph)
-renderer on the front-end that paints nodes and edges into an HTML `<canvas>` element. It looks
+unit tests and E2E test suites; we were developing a Directed Graph (Digraph)
+renderer on the front-end that paints nodes and edges into an HTML `<canvas>` element. It looked
 something like this:
 
 ![Lineage](../../assets/images/lineage.png)
@@ -27,7 +27,7 @@ something like this:
 Since we were rendering into the canvas, it was difficult to test
 our feature due to `<canvas>`'s lack of DOM representation.
 Screenshot comparison or pixel-based verification is difficult,
-so is simulating click events because that needs coordinate-based positioning.
+and so is simulating click events because that needs coordinate-based positioning.
 
 ...so, we made it so the code tests itself.
 
@@ -46,7 +46,7 @@ We defined a "happy path" and made sure we know when the app diverges from it.
 
 So, how did we do that?
 
-### Enter: Assertions
+# Enter: Assertions
 
 When we write code, we tend to make reasonable assumptions about the code and
 the environment we are writing the code in.
@@ -55,6 +55,12 @@ These assumptions could be about the state of your system, the data within the s
 what functions expect as input and are expected to output, their interfacing, and so on.
 
 Sometimes, these assumptions are wrong and this results in developer errors.
+
+[//]: # (```ts)
+
+[//]: # (0.1 + 0.2 === 0.3 // false)
+
+[//]: # (```)
 
 Assertions are a way to enforce correctness into your code, and do it such that your code itself screams
 at you when it is doing something you didn't expect it to, or when it is working with something you did

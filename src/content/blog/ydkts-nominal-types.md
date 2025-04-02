@@ -12,7 +12,7 @@ description:
   TypeScript gives you a false sense of security in type-safety, by only checking type structures. We fix that with a Nominal type system; allowing each type to have an identity beyond just it's member's types.
 ---
 
-### What's the problem with TypeScript?
+## What's the problem with TypeScript?
 
 TypeScript is a **structural** type system; meaning if you compare two types in TypeScript that have the same members, the TypeScript compiler will consider them equivalent.
 
@@ -42,13 +42,13 @@ const fetchPostById = (postId: PostId): Post => {
 fetchPostById(userId) // Whoops. TS won't catch this -- that's dangerous.
 ```
 
-### Okay, now what?
+## Okay, now what?
 
 Casually let your back-end figure out what to do with the given `userId` where it should've received a `postId`?
 
 No, let me help you avoid digging into the codebase on a Saturday afternoon because some feature you shipped yesterday is broken:
 
-### * Enter **_✨ `Nominal Types` ✨_**
+## * Enter **_✨ `Nominal Types` ✨_** *
 
 It's just 5 lines of code and really easy to add to your projects, so don't install a package for this, ThePrimeagen will hate you for it:
 
@@ -79,7 +79,7 @@ userId = postId // <-- TS will catch this, and won't allow it! :)
 
 Finally, now the variables in your projects are compatible if and only if they have the exact same types.
 
-### But let's take this a step further...
+## But let's take this a step further...
 
 Now your types aren't just structural and have a real identity other than the members contained in the type. The type itself makes the variables unique.
 
@@ -122,7 +122,7 @@ With using types this way, you can eliminate so many redundancies in your code t
 
 Now you **_know for sure_** whether an Array is sorted or not, and handle things accordingly.
 
-### But... how does it work though?
+## But... how does it work though?
 
 Under the hood, we're taking advantages of JavaScript's `Symbol`:
 
@@ -160,7 +160,7 @@ As evident from the TypeScript errors in the first example of Nominal types in p
 
 All we are really doing is intersecting the type string with `{readonly __type: 'PostId'}` by using TypeScript's intersection type operator `&`.
 
-### Typecasting nominal types
+## Typecasting nominal types
 
 We can't assign the nominal types to variables directly, so we need to use `as` everywhere;
 
