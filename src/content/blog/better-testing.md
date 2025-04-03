@@ -14,7 +14,7 @@ description:
 
 # Preface
 
-I've got you with this catchy title, but give me a minute; really quickly, I want to give
+I've got you with this catchy title, but gimme a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
 A feature that we were working on happened to be un-testable with
@@ -22,14 +22,21 @@ unit tests and E2E test suites; we were developing a Directed Graph (Digraph)
 renderer on the front-end that paints nodes and edges into an HTML `<canvas>` element. It looked
 something like this:
 
+<br />
+
 ![Lineage](../../assets/images/lineage.png)
+<p style="width: 100%; text-align: center;">
+Data Lineage - The digraph renderer
+</p>
+
+<br />
 
 Since we were rendering into the canvas, it was difficult to test
 our feature due to `<canvas>`'s lack of DOM representation.
 Screenshot comparison or pixel-based verification is difficult,
 and so is simulating click events because that needs coordinate-based positioning.
 
-...so, we made it so the code tests itself.
+**...so, we made it so the code tests itself.**
 
 We threw the tests INTO the code that we wrote, as opposed to running CI workflows for
 unit tests or E2E tests. This also means that the tests run during the app's run-time.
@@ -42,9 +49,11 @@ The outcomes were:
 
 We essentially defined a set of "allowed behaviours" that the app should operate in.
 And any time the app does something that we don't expect, we know exactly what to fix.
-We defined a "happy path" and made sure we know when the app diverges from it.
+We defined the "happy path" and made sure we know when the app diverges from it.
 
-So, how did we do that?
+<hr />
+
+### ...But how did we do that?
 
 # Enter: Assertions
 
@@ -56,17 +65,17 @@ what functions expect as input and are expected to output, their interfacing, an
 
 Sometimes, these assumptions are wrong and this results in developer errors.
 
-[//]: # (```ts)
+[//]: # (Like this well-known behaviour in JavaScript:)
 
-[//]: # (0.1 + 0.2 === 0.3 // false)
+[//]: # (![JavaScript bug]&#40;../../assets/images/js.png&#41;)
 
-[//]: # (```)
+[//]: # (Without experience, how do you even foresee this?)
 
 Assertions are a way to enforce correctness into your code, and do it such that your code itself screams
-at you when it is doing something you didn't expect it to, or when it is working with something you did
-not expect it to.
+at you when it is doing something you didn't expect it to, or when it is working with something you didn't
+expect it to.
 
-This also results in a subtle difference in the way that you think of testing:
+This also results in a subtle difference in the way you think of testing:
 - With unit tests, you account for edge cases and make sure they are handled properly.
 - With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
 
