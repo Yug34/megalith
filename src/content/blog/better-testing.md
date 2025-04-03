@@ -65,13 +65,18 @@ what functions expect as input and are expected to output, their interfacing, an
 
 Sometimes, these assumptions are wrong and this results in developer errors.
 
-[//]: # (Like this well-known behaviour in JavaScript:)
+Like this well-known behaviour in JavaScript:
 
-[//]: # (![JavaScript bug]&#40;../../assets/images/js.png&#41;)
+<br />
 
-[//]: # (Without experience, how do you even foresee this?)
+![JavaScript bug](../../assets/images/js.png)
 
-Assertions are a way to enforce correctness into your code, and do it such that your code itself screams
+<br />
+
+To no fault of the developer, they would incorrectly assume `0.1 + 0.2` to be `0.3`.
+Because why would anyone ever assume otherwise?
+
+Assertions are a way to enforce correctness into your code such that your code itself screams
 at you when it is doing something you didn't expect it to, or when it is working with something you didn't
 expect it to.
 
@@ -84,7 +89,7 @@ some really simple assertions just using `console.assert`, before we get to the 
 
 ```ts
 type Foo = {
-  bar?: any
+  bar?: any // Peak production TypeScript code
 }
 
 const factorialFoo = (foo: Foo) => {
@@ -95,15 +100,13 @@ const factorialFoo = (foo: Foo) => {
   return factorial(foo.bar)
 }
 
-const invalidFoo = { bar: 5.2 }
-factorialFoo(invalidFoo)        // Assertion failed: bar must exist and must be an integer
-
-// Similarly...
+// Every time you use the function in an unintended way, the assertion fails.
+factorialFoo({ bar: '5.2' })    // Assertion failed: bar must exist and must be an integer
 factorialFoo({})                // Assertion failed: bar must exist and must be an integer
 factorialFoo({ bar: -5 })       // Assertion failed: bar must be positive
 
-const validFoo = { bar: 5 }
-factorialFoo(validFoo)          // 120
+// But with valid input, it works just as expected:
+factorialFoo({ bar: 5 })        // 120
 ```
 
 So what just happened here?
