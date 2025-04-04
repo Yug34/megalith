@@ -118,62 +118,47 @@ what conditions must be true for our function to work as expected:
 
 Any time these assumptions are false, `console.assert` will tell you that the assertion is failing.
 
-Looking at the type definition `Foo` you don't have any information to go off of about `bar`, so instead of making
-safeguards for all that `bar` could be, **you assert exactly what it _should be_**.
+We have essentially programmed in an invariance; that `Foo.bar` should always be a number.
 
-[//]: # (This isn't yet using assertions to their full capacity. But before I get to it, here's a)
+### **Instead of making safeguards for all that `foo.bar` could be, we asserted exactly what it _should be_**.
 
-[//]: # (slightly more powerful version of `assert&#40;&#41;`:)
+But this isn't yet using assertions to their full capacity.
 
-[//]: # ()
-[//]: # (```ts)
+# Levelling up our asserts
 
-[//]: # (const env = import.meta.env.MODE)
+So far in this blog I've shown you just a basic use case of assertions with `console.assert`, but here's
+the gist of a custom `assert()` function that you would actually use:
 
-[//]: # (const isDev = env === 'development')
+This (still basic) `assert` implementation has the following features:
+- A way to run the assertion you wrote only in development mode, and some in dev and production builds as well.
+- A way to track when the assertion fails and log it for Sentry-like error monitoring
+- Should be a zero-cost implementation when needed, since assertions run during the run-time..
 
-[//]: # ()
-[//]: # (const noOp = &#40;&#41; => {})
+```ts
+const env = import.meta.env.MODE
+const isDev = env === 'development'
 
-[//]: # ()
-[//]: # (const createAssertFn = &#40;shouldRun&#41; => &#40;shouldRun ? console.assert : noOp&#41;)
+const noOp = () => {}
 
-[//]: # ()
-[//]: # (const createTrackErrorFn = &#40;shouldRun&#41; =>)
+const createAssertFn = (shouldRun) => (shouldRun ? console.assert : noOp)
 
-[//]: # (    shouldRun)
+const createTrackErrorFn = (shouldRun) =>
+    shouldRun
+        ? (condition, ...args) => {
+              if (!condition) {
+                  trackEvent('assertion_failed', {
+                      programState: args,
+                  })
+              }
+          }
+        : noOp
 
-[//]: # (        ? &#40;condition, ...args&#41; => {)
-
-[//]: # (              if &#40;!condition&#41; {)
-
-[//]: # (                  trackEvent&#40;'assertion_failed', {)
-
-[//]: # (                      programState: args,)
-
-[//]: # (                  }&#41;)
-
-[//]: # (              })
-
-[//]: # (          })
-
-[//]: # (        : noOp)
-
-[//]: # ()
-[//]: # (export const useAssert = &#40;&#41; => {)
-
-[//]: # (    return {)
-
-[//]: # (        assertFnDev: createAssertFn&#40;isDev&#41;,)
-
-[//]: # (        assertFn: createAssertFn&#40;!isDev&#41;,)
-
-[//]: # (        assertTrackErrorDev: createTrackErrorFn&#40;isDev&#41;,)
-
-[//]: # (        assertTrackError: createTrackErrorFn&#40;!isDev&#41;,)
-
-[//]: # (    })
-
-[//]: # (})
-
-[//]: # (```)
+export const assert = () => {
+    return {
+        assertFnDev: createAssertFn(isDev),
+        assertFn: createAssertFn(!isDev),
+        assertTrackErrorDev: createTrackErrorFn(isDev),
+        assertTrackError: createTrackErrorFn(!isDev),
+    }
+}
+```
