@@ -9,7 +9,7 @@ draft: false
 tags:
   - tech
 description:
-  Better testing
+  How we tested an un-testable feature, without touching unit tests!
 ---
 
 # Preface
@@ -63,7 +63,8 @@ the environment we are writing the code in.
 These assumptions could be about the state of your system, the data within the system and how it is passed around,
 what functions expect as input and are expected to output, their interfacing, and so on.
 
-Sometimes, these assumptions are wrong and this results in developer errors.
+Sometimes, these assumptions are wrong and this results in developer errors. Hell, sometimes even when you
+are aware about your environment, the code you write is still very prone to developer errors.
 
 Like this well-known behaviour in JavaScript:
 
@@ -83,6 +84,8 @@ expect it to.
 This also results in a subtle difference in the way you think of testing:
 - With unit tests, you account for edge cases and make sure they are handled properly.
 - With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
+
+<br />
 
 We'll move on to much more powerful examples of assertions, but let's start with
 some really simple assertions just using `console.assert`, before we get to the heart of it:
@@ -124,41 +127,52 @@ We have essentially programmed in an invariance; that `Foo.bar` should always be
 
 But this isn't yet using assertions to their full capacity.
 
+<br />
+
 # Levelling up our asserts
 
 So far in this blog I've shown you just a basic use case of assertions with `console.assert`, but here's
 the gist of a custom `assert()` function that you would actually use:
 
-This (still basic) `assert` implementation has the following features:
-- A way to run the assertion you wrote only in development mode, and some in dev and production builds as well.
-- A way to track when the assertion fails and log it for Sentry-like error monitoring
-- Should be a zero-cost implementation when needed, since assertions run during the run-time..
+This `assert` implementation has the following features:
+- Is a zero-cost implementation when needed, since assertions run during the run-time.
+  - Depending on the run-time environment mode (development vs production), either run or skip the assertions.
+- Tracking when an assertion fails and logging it with the program's state for Sentry-like error monitoring.
+- Debugging the program's seed state or user action that lead to an assertion failing.
+
+Here's the implementation for an idea, sorry for making you look at more code, but here goes:
 
 ```ts
 const env = import.meta.env.MODE
 const isDev = env === 'development'
 
+// Empty function. Used to skip assertions.
 const noOp = () => {}
 
-const createAssertFn = (shouldRun) => (shouldRun ? console.assert : noOp)
+function createAssert(shouldRun) {
+  return shouldRun ? console.assert : noOp
+}
 
-const createTrackErrorFn = (shouldRun) =>
-    shouldRun
-        ? (condition, ...args) => {
-              if (!condition) {
-                  trackEvent('assertion_failed', {
-                      programState: args,
-                  })
-              }
+function createTrackingAssert(shouldRun) {
+    if (shouldRun) {
+        return (condition, ...args) => {
+          if (!condition) {
+            trackEvent('assertion_failed', {
+              programState: args,
+            })
           }
-        : noOp
+        }
+    } else {
+      return noOp
+    }
+}
 
 export const assert = () => {
     return {
-        assertFnDev: createAssertFn(isDev),
-        assertFn: createAssertFn(!isDev),
-        assertTrackErrorDev: createTrackErrorFn(isDev),
-        assertTrackError: createTrackErrorFn(!isDev),
+        assertFnDev: createAssert(isDev),
+        assertFn: createAssert(!isDev),
+        assertTrackErrorDev: createTrackingAssert(isDev),
+        assertTrackError: createTrackingAssert(!isDev),
     }
 }
 ```
