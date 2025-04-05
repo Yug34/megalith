@@ -150,16 +150,13 @@ const isDev = env === 'development'
 const noOp = () => {}
 
 function createAssert(shouldRun) {
-  return shouldRun ? console.assert : noOp
-}
-
-function createTrackingAssert(shouldRun) {
     if (shouldRun) {
         return (condition, ...args) => {
           if (!condition) {
-            trackEvent('assertion_failed', {
-              programState: args,
-            })
+            trackEvent(
+              'assertion_failed', 
+              { programState: args }
+            )
           }
         }
     } else {
@@ -169,10 +166,8 @@ function createTrackingAssert(shouldRun) {
 
 export const assert = () => {
     return {
-        assertFnDev: createAssert(isDev),
-        assertFn: createAssert(!isDev),
-        assertTrackErrorDev: createTrackingAssert(isDev),
-        assertTrackError: createTrackingAssert(!isDev),
+        assertTrackErrorDev: createAssert(isDev),
+        assertTrackError: createAssert(!isDev),
     }
 }
 ```
