@@ -137,37 +137,50 @@ building block of an `assert()` implementation you would actually use.
 This `assert` implementation has the following features:
 - Is a zero-cost implementation so when needed, they have 0 run-time performance costs.
   - Depending on the run-time environment mode, either run or skip the assertions.
+  - If the `env.MODE` is `development`, 
+  - If the `env.MODE` is `production`, enable only the assertions intended to run with the production code that reaches the user.
+  - If the `env.MODE` is `debug`, enable all the assertions.
 - Tracking when an assertion fails and logging it with the program's state for Sentry-like error monitoring.
 - Ability to debug the program's seed state or user action that lead to an assertion failing.
 
 Here's the implementation for an idea, sorry for making you look at more code, but here goes:
 
-```ts
+```typescript
 const env = import.meta.env.MODE
 const isDev = env === 'development'
 
-// Empty function. Used to skip assertions.
-const noOp = () => {}
-
 function createAssert(shouldRun) {
-    if (shouldRun) {
-        return (condition, ...args) => {
-          if (!condition) {
-            trackEvent(
-              'assertion_failed', 
-              { programState: args }
-            )
-          }
-        }
-    } else {
-      return noOp
+  if (shouldRun) {
+    return (condition, assertion, ...args) => {
+      if (!condition) {
+        trackEvent(
+          `assertion_failed_${assertion}`,
+          { programState: args }
+        )
+      }
     }
+  } else {
+    const noOp = () => {} // Empty function. Used to skip assertions.
+    return noOp
+  }
 }
 
 export const assert = () => {
-    return {
-        assertTrackErrorDev: createAssert(isDev),
-        assertTrackError: createAssert(!isDev),
-    }
+  return {
+    assertTrackErrorDev: createAssert(isDev),
+    assertTrackError: createAssert(!isDev),
+  }
 }
+```
+
+
+```typescript
+
+assert('this_should_be_true', condition, {programState: state})
+assertDev('this_should_be_true', condition, {programState: state})
+
+function createAssert(shouldRun) {
+  
+}
+
 ```
