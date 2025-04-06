@@ -22,11 +22,17 @@ const shouldShowMyStuff = false
 ---
 
 <script>
-    import * as wasm from "wasm-game-of-life";
-    wasm.greet("Yug")
+    // import * as wasm from "wasm-game-of-life";
+    // wasm.greet("Watever")
+    import { Universe } from "wasm-game-of-life";
+    const universe = Universe.new();
+
 </script>
 
 <Layout>
+  <div class="absolute top-0 left-0 w-screen h-screen z-50 bg-amber-100">
+    <pre id="game-of-life-canvas"></pre>
+  </div>
   <Header />
   <main id="main-content">
     <section id="hero">
