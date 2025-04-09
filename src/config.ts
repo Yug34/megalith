@@ -102,7 +102,7 @@ export const SOCIALS: SocialObjects = [
     name: "Steam",
     href: "https://steamcommunity.com/profiles/76561198894184751/",
     linkTitle: `${SITE.title} on Steam`,
-    active: true,
+    active: false,
   },
   {
     name: "Telegram",
