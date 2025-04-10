@@ -174,7 +174,6 @@ export const assert = () => {
 
 
 ```typescript
-
 assert('this_should_be_true', condition, {programState: state})
 assertDev('this_should_be_true', condition, {programState: state})
 
