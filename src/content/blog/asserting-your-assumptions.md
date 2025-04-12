@@ -135,50 +135,81 @@ So far in this blog I've shown you just a basic use case of assertions with `con
 building block of an `assert()` implementation you would actually use.
 
 This `assert` implementation has the following features:
-- Is a zero-cost implementation so when needed, they have 0 run-time performance costs, and let's us control it:
+- Control when the assertions run:
   - If the `env.MODE` is `development`, enable all the assertions.
   - If the `env.MODE` is `production`, enable only the assertions intended to run in production.
   - If the `env.MODE` is `noAssert`, disable all the assertions.
 - Tracking when an assertion fails and logging it with the program's state for Sentry-like error monitoring.
-- Ability to debug the program's seed state or user action that lead to an assertion failing.
+- Ability to debug the program's seed state that lead to an assertion failing.
 
-Here's the implementation for an idea, sorry for making you look at more code, but here goes:
+Here's a simple factory function (`createAssert`) in just `50` lines of code that generates assertion functions:
+
+<br />
 
 ```typescript
 const env = import.meta.env.MODE
-const isDev = env === 'development'
 
-function createAssert(shouldRun) {
-  if (shouldRun) {
-    return (condition, assertion, ...args) => {
+const trackEvent = (eventName: string, data: any) => {
+  // Send event to Sentry/Mixpanel or other monitoring services
+}
+
+interface AssertOptions {
+  trackInProd?: boolean
+  throwOnFail?: boolean
+}
+
+type AssertFunction = (assertion: string, condition: boolean, programState?: any) => void
+
+// Factory function to create assertion functions
+const createAssert = (options: AssertOptions = {}): AssertFunction => {
+  const { trackInProd = false, throwOnFail = false } = options
+
+  if (env === 'noAssert') {
+    return () => {}
+  }
+  
+  if (env === 'development') {
+    return (assertion: string, condition: boolean, programState?: any) => {
+      if (!condition) {
+        console.error(`Assertion Failed: ${assertion}`)
+        console.error('Program state:', programState ?? {})
+        
+        const error = new Error(`Assertion failed: ${assertion}`)
+        console.error(error.stack)
+        if(throwOnFail) {
+          throw error
+        }
+      }
+    };
+  }
+  
+  if (env === 'production' && trackInProd) {
+    return (assertion: string, condition: boolean, programState?: any) => {
       if (!condition) {
         trackEvent(
           `assertion_failed_${assertion}`,
-          { programState: args }
-        )
+          { programState: programState ?? {} }
+        );
+
+        const error = new Error(`Assertion failed: ${assertion}`);
+        if (throwOnFail) {
+          throw error
+        }
       }
     }
-  } else {
-    const noOp = () => {} // Empty function. Used to skip assertions.
-    return noOp
   }
-}
-
-export const assert = () => {
-  return {
-    assertTrackErrorDev: createAssert(isDev),
-    assertTrackError: createAssert(!isDev),
-  }
-}
+  
+  // Default for other envs
+  return () => {}
+};
 ```
 
+<br />
 
-```typescript
-assert('this_should_be_true', condition, {programState: state})
-assertDev('this_should_be_true', condition, {programState: state})
+And this is how you use these assertions:
 
-function createAssert(shouldRun) {
-  
-}
-
+```ts
+const assert = createAssert() // Default: enabled in dev, disabled in prod
+const criticalAssert = createAssert({ throwOnFail: true })
+const prodAssert = createAssert({ trackInProd: true }) // Tracks failures in prod
 ```
