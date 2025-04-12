@@ -325,7 +325,9 @@ that must hold true, and enforces it so you can move forward with the confidence
 
 ### Further reading:
 
-[TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) is a neat set of rules on how to use assertions for even better safety.
+[TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) has a neat set of rules on using asserts for even better safety.
+
+Cheers! 🥂
 
 <!-- ```
 Statically typing my English natural language queries so the AI doesn't misinterpret them:
