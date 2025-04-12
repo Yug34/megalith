@@ -318,6 +318,11 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
 }
 ```
 
+Every assertion you apply here acts as documentation about what the environment assumes is an invariant
+that must hold true, and also allows you to move forward with the confidence that your assumptions are correct.
+
+
+
 <!-- ```
 Statically typing my English natural language queries so the AI doesn't misinterpret them:
 
