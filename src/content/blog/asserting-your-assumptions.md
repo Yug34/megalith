@@ -141,8 +141,9 @@ This `assert` implementation has the following features:
   - If the `env.MODE` is `noAssert`, disable all the assertions.
 - Tracking when an assertion fails and logging it with the program's state for Sentry-like error monitoring.
 - Ability to debug the program's seed state that lead to an assertion failing.
+- Ability to throw an error and crash the program if a failing assertion might lead to a critical bug.
 
-Here's a simple factory function (`createAssert`) in just `50` lines of code that generates assertion functions:
+Here's a simple factory function (`createAssert`) in just `~50` lines of code that produces assertion functions:
 
 <br />
 
@@ -150,15 +151,15 @@ Here's a simple factory function (`createAssert`) in just `50` lines of code tha
 const env = import.meta.env.MODE
 
 const trackEvent = (eventName: string, data: any) => {
-  // Send event to Sentry/Mixpanel or other monitoring services
+  // Send event to Sentry or other monitoring services
 }
+
+type AssertFunction = (assertion: string, condition: boolean, programState?: any) => void
 
 interface AssertOptions {
   trackInProd?: boolean
   throwOnFail?: boolean
 }
-
-type AssertFunction = (assertion: string, condition: boolean, programState?: any) => void
 
 // Factory function to create assertion functions
 const createAssert = (options: AssertOptions = {}): AssertFunction => {
@@ -174,9 +175,8 @@ const createAssert = (options: AssertOptions = {}): AssertFunction => {
         console.error(`Assertion Failed: ${assertion}`)
         console.error('Program state:', programState ?? {})
         
-        const error = new Error(`Assertion failed: ${assertion}`)
-        console.error(error.stack)
-        if(throwOnFail) {
+        if (throwOnFail) {
+          const error = new Error(`Assertion failed: ${assertion}`)
           throw error
         }
       }
@@ -191,8 +191,8 @@ const createAssert = (options: AssertOptions = {}): AssertFunction => {
           { programState: programState ?? {} }
         );
 
-        const error = new Error(`Assertion failed: ${assertion}`);
         if (throwOnFail) {
+          const error = new Error(`Assertion failed: ${assertion}`);
           throw error
         }
       }
@@ -206,10 +206,134 @@ const createAssert = (options: AssertOptions = {}): AssertFunction => {
 
 <br />
 
-And this is how you use these assertions:
+With the factory function implemented, this is how you create the assert functions:
 
 ```ts
-const assert = createAssert() // Default: enabled in dev, disabled in prod
-const criticalAssert = createAssert({ throwOnFail: true })
-const prodAssert = createAssert({ trackInProd: true }) // Tracks failures in prod
+// Runs only in dev mode, disabled in prod:
+const assert = createAssert() 
+// Runs only in dev mode, and throws when it fails:
+const criticalAssert = createAssert({ throwOnFail: true }) 
+// Tracks failures in prod and logs it to Sentry/Mixpanel
+const prodAssert = createAssert({ trackInProd: true })
+// Tracks failures in prod and throws
+const criticalProdAssert = createAssert({ throwOnFail: true, trackInProd: true })
 ```
+
+<br />
+
+And this is how you use them for actual code:
+
+
+```ts
+// In a funds transfer service
+async function transferFunds(sourceAccountId, destinationAccountId, amount, userId) {
+  // Validate inputs
+  criticalProdAssert(
+    "source_account_exists",
+    typeof sourceAccountId === 'string' && sourceAccountId.length > 0,
+    { sourceAccountId }
+  );
+  
+  criticalProdAssert(
+    "destination_account_exists",
+    typeof destinationAccountId === 'string' && destinationAccountId.length > 0,
+    { destinationAccountId }
+  );
+  
+  criticalProdAssert(
+    "amount_valid",
+    typeof amount === 'number' && amount > 0 && isFinite(amount),
+    { amount }
+  );
+  
+  // Load accounts:
+  const sourceAccount = await accountService.getAccount(sourceAccountId);
+  const destinationAccount = await accountService.getAccount(destinationAccountId);
+  
+  criticalProdAssert(
+    "source_account_found",
+    sourceAccount !== null,
+    { sourceAccountId, userId }
+  );
+  
+  criticalProdAssert(
+    "destination_account_found",
+    destinationAccount !== null,
+    { destinationAccountId, userId }
+  );
+  
+  criticalProdAssert(
+    "source_account_belongs_to_user",
+    sourceAccount.ownerId === userId,
+    { 
+      sourceAccountId, 
+      sourceAccountOwnerId: sourceAccount.ownerId, 
+      requestingUserId: userId 
+    }
+  );
+  
+  criticalProdAssert(
+    "sufficient_funds",
+    sourceAccount.balance >= amount,
+    { 
+      sourceAccountId,
+      currentBalance: sourceAccount.balance,
+      requestedAmount: amount,
+    }
+  );
+  
+  // All assertions pass! We are safe to proceed:
+  const transaction = await db.beginTransaction();
+  
+  try {
+    await accountService.debitAccount(sourceAccountId, amount, transaction);
+    await accountService.creditAccount(destinationAccountId, amount, transaction);
+    
+    // Verify transaction integrity - critical to financial consistency
+    const updatedSourceAccount = await accountService.getAccount(sourceAccountId, transaction);
+    criticalProdAssert(
+      "debit_applied_correctly",
+      Math.abs(sourceAccount.balance - updatedSourceAccount.balance - amount) < 0.001,
+      {
+        sourceAccountId,
+        originalBalance: sourceAccount.balance,
+        newBalance: updatedSourceAccount.balance,
+        amount,
+        difference: sourceAccount.balance - updatedSourceAccount.balance
+      }
+    );
+    
+    // All is good, commit the transaction!
+    await transaction.commit();
+    return {
+      success: true,
+      transactionId: transaction.id,
+      newSourceBalance: updatedSourceAccount.balance
+    };
+  } catch (error) {
+    // Some assertion failed, rollback on thrown error
+    await transaction.rollback();
+    throw error;
+  }
+}
+```
+
+<!-- ```
+Statically typing my English natural language queries so the AI doesn't misinterpret them:
+
+interface Statement {
+  subject: string
+  action: string
+  object?: string
+  intent: "sarcastic" | "serious" | "joke" | "request" | "question"
+  tone?: "passive_aggressive" | "enthusiastic" | "deadpan" | "condescending"
+  emotion?: "angry" | "happy" | "confused" | "apathetic" | "delirious"
+  formality?: "casual" | "formal" | "corporate"
+}
+
+This clarified my prompts by a lot, so here's the logical next step:
+
+What if I create a natural language such that I could talk to the computer directly in machine code after compiling the natural language phrases.
+
+Hi, I'm Guido Van Rossum.
+``` -->

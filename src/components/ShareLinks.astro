@@ -39,21 +39,7 @@ const shareLinks = [
 ---
 
 <div class={`social-icons`}>
-  <span class="italic">Share this post on:</span>
-  <div class="text-center">
-    {
-      shareLinks.map(social => (
-        <LinkButton
-          href={`${social.href + URL}`}
-          className="link-button"
-          title={social.linkTitle}
-        >
-          <Fragment set:html={socialIcons[social.name]} />
-          <span class="sr-only">{social.linkTitle}</span>
-        </LinkButton>
-      ))
-    }
-  </div>
+  <span class="italic">Thanks for reading <3</span>
 </div>
 
 <style>
