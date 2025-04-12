@@ -82,7 +82,7 @@ at you when it is doing something you didn't expect it to, or when it is working
 expect it to.
 
 This also results in a subtle difference in the way you think of testing:
-- With unit tests, you account for edge cases and make sure they are handled properly.
+- With unit tests, you manually predict and account for edge cases and make sure they are handled properly.
 - With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
 
 <br />
