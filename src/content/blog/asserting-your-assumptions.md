@@ -318,8 +318,7 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
 }
 ```
 
-Every assertion you apply here acts as documentation about what the environment assumes is an invariant
-that must hold true, and enforces it so you can move forward with the confidence that your assumptions are correct.
+Every assertion you apply here enforces what the environment needs to be invariant so you can move forward with the confidence that your assumptions are correct.
 
 <hr />
 
@@ -327,7 +326,7 @@ that must hold true, and enforces it so you can move forward with the confidence
 
 [TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) has a neat set of rules on using asserts for even better safety.
 
-Cheers! 🥂
+I'm done; be (type)safe! 🥂
 
 <!-- ```
 Statically typing my English natural language queries so the AI doesn't misinterpret them:
