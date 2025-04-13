@@ -22,6 +22,7 @@ const blog = defineCollection({
         .optional(),
       description: z.string(),
       canonicalURL: z.string().optional(),
+      readingTime: z.string().optional().default("8 min"),
       editPost: z
         .object({
           disabled: z.boolean().optional(),

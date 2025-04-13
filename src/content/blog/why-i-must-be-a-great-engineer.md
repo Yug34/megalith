@@ -10,6 +10,7 @@ tags:
   - life
 description:
   I don't owe it to anyone... or do I?
+readingTime: '2 mins'
 ---
 
 It’s not because I love money, though it's good to have.

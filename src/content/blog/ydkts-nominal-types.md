@@ -10,6 +10,7 @@ tags:
   - tech
 description:
   TypeScript gives you a false sense of security in type-safety, by only checking type structures. We fix that with a Nominal type system; allowing each type to have an identity beyond just it's member's types.
+readingTime: '4-6 mins'
 ---
 
 ## What's the problem with TypeScript?

@@ -26,7 +26,11 @@ const {
   modDatetime,
   tags,
   editPost,
+  readingTime,
 } = post.data;
+
+// Debug reading time
+console.log("Reading time:", readingTime);
 
 const { Content } = await post.render();
 
@@ -87,6 +91,7 @@ const nextPost =
       className="my-2"
       editPost={editPost}
       postId={post.id}
+      readingTime={readingTime || "8 min"}
     />
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />

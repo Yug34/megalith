@@ -14,6 +14,7 @@ interface EditPostProps {
 interface Props extends DatetimesProps, EditPostProps {
   size?: "sm" | "lg";
   className?: string;
+  readingTime?: string;
 }
 
 export default function Datetime({
@@ -23,7 +24,11 @@ export default function Datetime({
   className = "",
   editPost,
   postId,
+  readingTime,
 }: Props) {
+  // Debug reading time
+  console.log("Datetime component reading time:", readingTime);
+  
   return (
     <div
       className={`flex items-center space-x-2 opacity-80 ${className}`.trim()}
@@ -52,6 +57,14 @@ export default function Datetime({
         />
         {size === "lg" && <EditPost editPost={editPost} postId={postId} />}
       </span>
+      {readingTime && (
+        <>
+          <span aria-hidden="true"> | </span>
+          <span className={`${size === "sm" ? "text-sm" : "text-base"} font-bold text-skin-accent`}>
+            {readingTime}
+          </span>
+        </>
+      )}
     </div>
   );
 }
