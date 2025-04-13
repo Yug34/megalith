@@ -21,40 +21,6 @@ const shouldShowRSS = false
 const shouldShowMyStuff = false
 ---
 
-<script>
-    import init from "wasm-game-of-life/wasm_game_of_life.js";
-    
-    async function initGameOfLife() {
-        try {
-            // @ts-expect-error: wasm is not typed
-            await init("/wasm/wasm_game_of_life_bg.wasm");
-            const { Universe } = await import("wasm-game-of-life/wasm_game_of_life.js");
-            return Universe;
-        } catch (error) {
-            console.error("Failed to initialize WebAssembly module:", error);
-            return null;
-        }
-    }
-
-    async function startGameOfLife() {
-        const Universe = await initGameOfLife();
-        if (!Universe) return;
-
-        const pre = document.getElementById("game-of-life-canvas");
-        const universe = Universe.new();
-
-        const renderLoop = () => {
-            pre!.textContent = universe.render();
-            universe.tick();
-            requestAnimationFrame(renderLoop);
-        };
-
-        requestAnimationFrame(renderLoop);
-    }
-
-    startGameOfLife();
-</script>
-
 <Layout>
   <Header />
   <pre id="game-of-life-canvas"></pre>
