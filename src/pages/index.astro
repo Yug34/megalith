@@ -22,15 +22,36 @@ const shouldShowMyStuff = false
 ---
 
 <script>
-    // import * as wasm from "wasm-game-of-life";
-    // wasm.greet("Watever")
-    // import { Universe } from "wasm-game-of-life";
-    // const universe = Universe.new();
+    import init from "wasm-game-of-life/wasm_game_of_life.js";
+    
+    async function initWasm() {
+        try {
+            // @ts-expect-error: wasm is not typed
+            await init("/wasm/wasm_game_of_life_bg.wasm");
+            const { Universe } = await import("wasm-game-of-life/wasm_game_of_life.js");
+            
+            const pre = document.getElementById("game-of-life-canvas");
+            const universe = Universe.new();
 
+            const renderLoop = () => {
+              pre!.textContent = universe.render();
+              universe.tick();
+
+              requestAnimationFrame(renderLoop);
+            };
+
+            requestAnimationFrame(renderLoop);
+        } catch (error) {
+            console.error("Failed to initialize WebAssembly module:", error);
+        }
+    }
+
+    initWasm();
 </script>
 
 <Layout>
   <Header />
+  <pre id="game-of-life-canvas"></pre>
   <main id="main-content">
     <section id="hero">
       <div class="flex justify-start items-end mb-6 gap-x-6">
@@ -59,7 +80,7 @@ const shouldShowMyStuff = false
       }
 
       <p>
-        Hey, you’re the one that I wanted to find.
+        Hey, you're the one that I wanted to find.
         I have waited here for you, for so long.
         I've missed you. I feel like we don't know each other anymore.
       </p>
