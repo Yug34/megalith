@@ -319,6 +319,8 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
 
 Every assertion you apply here enforces what the environment needs to be invariant so you can move forward with the confidence that your assumptions are correct.
 
+I'm done; be safe, and write safe code! Cheers 🥂
+
 <hr />
 
 ### Further reading:
@@ -332,8 +334,6 @@ Every assertion you apply here enforces what the environment needs to be invaria
   - The golden rule of assertions is to assert the positive space that you do expect AND to assert the negative space that you do not expect because where data moves across the valid/invalid boundary between these spaces is where interesting bugs are often found. This is also why tests must test exhaustively, not only with valid data but also with invalid data, and as valid data becomes invalid.
 
 <hr />
-
-I'm done; be (type)safe! 🥂
 
 <!-- 
 ```
