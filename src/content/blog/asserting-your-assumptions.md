@@ -39,8 +39,8 @@ and so is simulating click events because that needs coordinate-based positionin
 
 **...so, we made it so the code tests itself.**
 
-We threw the tests INTO the code that we wrote, as opposed to running CI workflows for
-unit tests or E2E tests. This also means that the tests run during the app's run-time.
+We threw the tests _**into**_ the code that we wrote, as opposed to running CI workflows for
+unit or E2E tests. This also means that the tests run during the app's run-time.
 
 The outcomes were:
 - We were able to test if what we rendered onto the canvas was actually correct. 
@@ -79,8 +79,7 @@ To no fault of the developer, they would incorrectly assume `0.1 + 0.2` to be `0
 Because why would anyone ever assume otherwise?
 
 Assertions are a way to enforce correctness into your code such that your code itself screams
-at you when it is doing something you didn't expect it to, or when it is working with something you didn't
-expect it to.
+at you when it is doing something you didn't expect it to.
 
 This also results in a subtle difference in the way you think of testing:
 - With unit tests, you manually predict and account for edge cases and make sure they are handled properly.
