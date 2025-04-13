@@ -246,7 +246,7 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
     { amount }
   );
   
-  // Load accounts:
+  // All is good so far, load the accounts!:
   const sourceAccount = await accountService.getAccount(sourceAccountId);
   const destinationAccount = await accountService.getAccount(destinationAccountId);
   
@@ -289,7 +289,6 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
     await accountService.debitAccount(sourceAccountId, amount, transaction);
     await accountService.creditAccount(destinationAccountId, amount, transaction);
     
-    // Verify transaction integrity - critical to financial consistency
     const updatedSourceAccount = await accountService.getAccount(sourceAccountId, transaction);
     criticalProdAssert(
       "debit_applied_correctly",
@@ -311,7 +310,6 @@ async function transferFunds(sourceAccountId, destinationAccountId, amount, user
       newSourceBalance: updatedSourceAccount.balance
     };
   } catch (error) {
-    // Some assertion failed, rollback on thrown error
     await transaction.rollback();
     throw error;
   }
@@ -326,12 +324,15 @@ Every assertion you apply here enforces what the environment needs to be invaria
 
 [TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) has a neat set of rules on using asserts for even better safety.
 
+<hr />
+
 I'm done; be (type)safe! 🥂
 
-<!-- ```
-Statically typing my English natural language queries so the AI doesn't misinterpret them:
+<!-- 
+```
+Statically typing my English natural language prompts so the AI doesn't misinterpret them:
 
-interface Statement {
+interface Prompt {
   subject: string
   action: string
   object?: string
@@ -341,9 +342,10 @@ interface Statement {
   formality?: "casual" | "formal" | "corporate"
 }
 
-This clarified my prompts by a lot, so here's the logical next step:
+This clarified my prompts by a lot, so...
 
 What if I create a natural language such that I could talk to the computer directly in machine code after compiling the natural language phrases.
 
 Hi, I'm Guido Van Rossum.
-``` -->
+``` 
+-->
