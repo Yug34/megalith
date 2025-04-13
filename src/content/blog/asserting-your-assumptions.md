@@ -322,7 +322,13 @@ Every assertion you apply here enforces what the environment needs to be invaria
 
 ### Further reading:
 
-[TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) has a neat set of rules on using asserts for even better safety.
+- [TigerBeetle's safety guide](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md#safety) has a neat set of rules on using asserts for even better safety. Here are the most important bits:
+
+  - Assert all function arguments and return values, pre/postconditions and invariants. A function must not operate blindly on data it has not checked. The purpose of a function is to increase the probability that a program is correct. Assertions within a function are part of how functions serve this purpose. The assertion density of the code must average a minimum of two assertions per function.
+
+  - Pair assertions. For every property you want to enforce, try to find at least two different code paths where an assertion can be added. For example, assert validity of data right before writing it to disk, and also immediately after reading from disk.
+
+  - The golden rule of assertions is to assert the positive space that you do expect AND to assert the negative space that you do not expect because where data moves across the valid/invalid boundary between these spaces is where interesting bugs are often found. This is also why tests must test exhaustively, not only with valid data but also with invalid data, and as valid data becomes invalid.
 
 <hr />
 
