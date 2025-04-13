@@ -3,7 +3,7 @@ author: Yug Gajjar
 pubDatetime: 2025-02-21T15:22:00Z
 modDatetime: 2025-02-21T09:12:47.400Z
 title: 'Code that tests itself: Asserting your assumptions'
-slug: better-testing
+slug: asserting-your-assumptions
 featured: true
 draft: false
 tags:
@@ -354,5 +354,9 @@ This clarified my prompts by a lot, so...
 What if I create a natural language such that I could talk to the computer directly in machine code after compiling the natural language phrases.
 
 Hi, I'm Guido Van Rossum.
+
+Day: Aim for a Tuesday, Wednesday, or Thursday for optimal workweek engagement.
+
+Time (IST): Target a posting window around 5:00–7:00 PM IST to align with the U.S. morning peaks and the general midweek engagement rhythm.
 ``` 
 -->
