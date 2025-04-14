@@ -9,7 +9,7 @@ draft: false
 tags:
   - tech
 description:
-  How we tested an un-testable feature, without touching unit tests!
+  We were working on a <canvas> based UI feature without any DOM representation, and had to test interactivity. We threw our tests directly into the code so our tests run along with our code and enforce correctness... But how!?
 readingTime: '6-7 mins'
 ---
 
