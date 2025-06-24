@@ -2,20 +2,20 @@
 author: Yug Gajjar
 pubDatetime: 2025-02-21T15:22:00Z
 modDatetime: 2025-02-21T09:12:47.400Z
-title: 'Code that tests itself: Asserting your assumptions'
+title: 'Throwing tests into code: Assert your assumptions'
 slug: asserting-your-assumptions
 featured: true
 draft: false
 tags:
   - tech
 description:
-  We were working on a <canvas> based UI feature without any DOM representation, and had to test interactivity. We threw our tests directly into the code so our tests run along with our code and enforce correctness... But how!?
+  We were working on a <canvas> based UI feature and had to test interactivity, how did we do that without any DOM representation? We threw our tests directly into the code so our tests run along with our code and enforce correctness... But how!?
 readingTime: '6-7 mins'
 ---
 
 # Preface
 
-I've got you with this catchy title, but gimme a minute; really quickly, I want to give
+Gimme a minute; really quickly, I want to give
 you some background on the way we at Atlan fixed our testing troubles.
 
 A feature that we were working on happened to be un-testable with
@@ -37,7 +37,7 @@ our feature due to `<canvas>`'s lack of DOM representation.
 Screenshot comparison or pixel-based verification is difficult,
 and so is simulating click events because that needs coordinate-based positioning.
 
-**...so, we made it so the code tests itself.**
+**...so, we ran the tests on our code itself.**
 
 We threw the tests _**into**_ the code that we wrote, as opposed to running CI workflows for
 unit or E2E tests. This also means that the tests run during the app's run-time.
@@ -81,9 +81,13 @@ Because why would anyone ever assume otherwise?
 Assertions are a way to enforce correctness into your code such that your code itself screams
 at you when it is doing something you didn't expect it to.
 
-This also results in a subtle difference in the way you think of testing:
-- With unit tests, you manually predict and account for edge cases and make sure they are handled properly.
+<br />
+
+This also requires a slight mindset shift in how you approach testing:
+- With unit tests, you predict and account for edge cases and make sure they are handled properly.
 - With assertions, you define the happy path of the software directly, and anytime the code diverges from it, it will automatically complain.
+
+This is not to compare unit tests and assertions, but a neat consequence of writing tests that run along your code to keep in mind!
 
 <br />
 
