@@ -5,13 +5,13 @@ export const SITE: Site = {
   author: "Yug Gajjar",
   profile: "https://github.com/Yug34",
   desc: "Home.",
-  title: "YJG ~",
+  title: "Yug Gajjar",
   ogImage: "yjg.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 10,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: true,
+  showArchives: false,
   editPost: {
     url: "https://github.com/Yug34/megalith/edit/main/src/content/blog",
     text: "Suggest Changes",
@@ -32,12 +32,12 @@ export const LOGO_IMAGE = {
 };
 
 export const SOCIALS: SocialObjects = [
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/stfyug_/",
-    linkTitle: `${SITE.title} on Instagram`,
-    active: true,
-  },
+  // {
+  //   name: "Instagram",
+  //   href: "https://www.instagram.com/stfyug_/",
+  //   linkTitle: `${SITE.title} on Instagram`,
+  //   active: true,
+  // },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/yug34/",

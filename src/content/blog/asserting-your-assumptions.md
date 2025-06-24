@@ -9,7 +9,7 @@ draft: false
 tags:
   - tech
 description:
-  We were working on a <canvas> based UI feature and had to test interactivity, how did we do that without any DOM representation? We threw our tests directly into the code so our tests run along with our code and enforce correctness... But how!?
+  We were working on a <canvas> based UI feature and had to test interactivity, how did we do that without any DOM representation? We threw our tests directly into the code so our tests run along with our code to enforce correctness... But how!?
 readingTime: '6-7 mins'
 ---
 
