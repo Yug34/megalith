@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
+import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
   project: CollectionEntry<"projects">;
@@ -18,22 +19,29 @@ export default function ProjectCard({ project }: Props) {
   };
 
   const imageSrc = getImageSrc();
+  const projectPageUrl = `/projects/${project.slug}`;
 
   return (
     <div className="group relative overflow-hidden rounded-lg border border-skin-line bg-skin-card transition-all hover:scale-[1.02] hover:shadow-lg">
       {/* Image Container */}
-      <div className="aspect-video w-full overflow-hidden bg-skin-fill">
-        <img
-          src={imageSrc}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-        />
-      </div>
+      <a href={projectPageUrl} className="block">
+        <div className="aspect-video w-full overflow-hidden bg-skin-fill">
+          <img
+            src={imageSrc}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+      </a>
 
       {/* Content Container */}
       <div className="p-6">
-        <h3 className="mb-2 text-xl font-bold text-skin-accent">{title}</h3>
+        <a href={projectPageUrl}>
+          <h3 className="mb-2 text-xl font-bold text-skin-accent hover:underline">
+            {title}
+          </h3>
+        </a>
         <p className="mb-4 text-skin-base">{description}</p>
 
         {/* Tags */}

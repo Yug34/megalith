@@ -15,14 +15,14 @@ A high-performance implementation of Conway's Game of Life using Rust compiled t
 
 ## Features
 
-- Fast execution using WebAssembly
-- Interactive controls
-- Customizable grid size
-- Pattern library
+- .mapr supports displaying images, audio, video & PDF files.
+- No account creation needed, everything is stored in IndexedDB for persistence.
+- Node and canvas interactions.
 
 ## Tech Stack
 
-- Rust
-- WebAssembly
-- JavaScript
-- HTML Canvas
+- React
+- React Flow
+- Zustand
+- IndexedDB
+- TypeScript

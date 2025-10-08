@@ -1,0 +1,262 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Tag from "@components/Tag.astro";
+import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "@utils/slugify";
+import { SITE } from "@config";
+import type { ImageMetadata } from "astro";
+
+export interface Props {
+  project: CollectionEntry<"projects">;
+  projects: CollectionEntry<"projects">[];
+}
+
+const { project, projects } = Astro.props;
+
+const {
+  title,
+  description,
+  projectImage,
+  projectUrl,
+  githubUrl,
+  tags,
+  pubDatetime,
+} = project.data;
+
+const { Content } = await project.render();
+
+// Get image source
+const getImageSrc = () => {
+  if (typeof projectImage === "string") {
+    return projectImage;
+  }
+  return (projectImage as ImageMetadata).src;
+};
+
+const imageSrc = getImageSrc();
+
+const layoutProps = {
+  title: `${title} | ${SITE.title}`,
+  author: SITE.author,
+  description,
+  pubDatetime,
+  scrollSmooth: true,
+};
+
+/* ========== Prev/Next Projects ========== */
+
+const allProjects = projects.map(({ data: { title }, slug }) => ({
+  slug,
+  title,
+}));
+
+const currentProjectIndex = allProjects.findIndex(a => a.slug === project.slug);
+
+const prevProject =
+  currentProjectIndex !== 0 ? allProjects[currentProjectIndex - 1] : null;
+const nextProject =
+  currentProjectIndex !== allProjects.length
+    ? allProjects[currentProjectIndex + 1]
+    : null;
+---
+
+<Layout {...layoutProps}>
+  <Header activeNav="projects" />
+
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+    <button
+      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+      onclick="(() => (history.length === 1) ? window.location = '/projects/' : history.back())()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+        ><path
+          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
+      </svg><span>Go back</span>
+    </button>
+  </div>
+  <main id="main-content">
+    <h1 transition:name={slugifyStr(title)} class="project-title inline-block">
+      {title}
+    </h1>
+
+    <!-- Project Image -->
+    <div class="my-6 overflow-hidden rounded-lg">
+      <img
+        src={imageSrc}
+        alt={title}
+        class="h-auto w-full object-cover"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Project Links -->
+    <div class="my-4 flex flex-wrap gap-4">
+      {
+        projectUrl && (
+          <a
+            href={projectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="focus-outline inline-flex items-center gap-2 rounded-lg bg-skin-accent px-4 py-2 font-medium text-skin-inverted hover:opacity-90"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            View Live Project
+          </a>
+        )
+      }
+      {
+        githubUrl && (
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="focus-outline inline-flex items-center gap-2 rounded-lg border border-skin-line px-4 py-2 font-medium hover:bg-skin-accent/10"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg>
+            View on GitHub
+          </a>
+        )
+      }
+    </div>
+
+    <article id="article" class="prose mx-auto mt-8 max-w-3xl">
+      <Content />
+    </article>
+
+    <ul class="my-8 flex flex-wrap gap-2">
+      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+    </ul>
+
+    <div class="flex items-center justify-between">
+      <button
+        id="back-to-top"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
+          <path
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+          ></path>
+        </svg>
+        <span>Back to Top</span>
+      </button>
+    </div>
+
+    <hr class="my-6 border-dashed" />
+
+    <!-- Previous/Next Project Buttons -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        prevProject && (
+          <a
+            href={`/projects/${prevProject.slug}`}
+            class="flex w-full gap-1 hover:opacity-75"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M15 6l-6 6l6 6" />
+            </svg>
+            <div>
+              <span>Previous Project</span>
+              <div class="text-sm text-skin-accent/85">{prevProject.title}</div>
+            </div>
+          </a>
+        )
+      }
+      {
+        nextProject && (
+          <a
+            href={`/projects/${nextProject.slug}`}
+            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+          >
+            <div>
+              <span>Next Project</span>
+              <div class="text-sm text-skin-accent/85">{nextProject.title}</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 6l6 6l-6 6" />
+            </svg>
+          </a>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  }
+  .project-title {
+    @apply text-2xl font-semibold text-skin-accent;
+  }
+</style>
+
+<script is:inline data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    document.querySelector("#back-to-top")?.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+  }
+  backToTop();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
