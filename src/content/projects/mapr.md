@@ -1,6 +1,6 @@
 ---
 title: ".mapr"
-description: "A mind mapping app. Supports PDFs, audio files, video files, images, text nodes and such."
+description: "A mind mapping app like Miro. Supports PDFs, audio files, video files, images, text nodes and such."
 projectImage: "../../assets/images/mapr.png"
 githubUrl: "https://github.com/Yug34/mapr"
 projectUrl: "https://mapr-one.vercel.app/"
