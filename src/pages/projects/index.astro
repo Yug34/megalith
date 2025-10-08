@@ -37,16 +37,12 @@ const otherProjects = publishedProjects.filter(
       featuredProjects.length > 0 && (
         <>
           <section id="featured-projects" class="pb-6 pt-12">
-            <h2 class="mb-8 text-2xl font-semibold tracking-wide">
-              Featured Projects
-            </h2>
             <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
               {featuredProjects.map(project => (
                 <ProjectCard project={project} client:load />
               ))}
             </div>
           </section>
-          {otherProjects.length > 0 && <Hr />}
         </>
       )
     }
@@ -54,10 +50,7 @@ const otherProjects = publishedProjects.filter(
     {
       otherProjects.length > 0 && (
         <section id="other-projects" class="pb-6 pt-12">
-          <h2 class="mb-8 text-2xl font-semibold tracking-wide">
-            {featuredProjects.length > 0 ? "More Projects" : "All Projects"}
-          </h2>
-          <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
+          <div class="lg:grid-cols-3 grid gap-x-8 gap-y-16 sm:grid-cols-2">
             {otherProjects.map(project => (
               <ProjectCard project={project} client:load />
             ))}
