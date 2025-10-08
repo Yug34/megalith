@@ -1,0 +1,107 @@
+import type { CollectionEntry } from "astro:content";
+import type { ImageMetadata } from "astro";
+
+export interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+export default function ProjectCard({ project }: Props) {
+  const { title, description, projectImage, projectUrl, githubUrl, tags } =
+    project.data;
+
+  // Determine the image source - handle both local and external images
+  const getImageSrc = () => {
+    if (typeof projectImage === "string") {
+      return projectImage;
+    }
+    return (projectImage as ImageMetadata).src;
+  };
+
+  const imageSrc = getImageSrc();
+
+  return (
+    <div className="group relative overflow-hidden rounded-lg border border-skin-line bg-skin-card transition-all hover:scale-[1.02] hover:shadow-lg">
+      {/* Image Container */}
+      <div className="aspect-video w-full overflow-hidden bg-skin-fill">
+        <img
+          src={imageSrc}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Content Container */}
+      <div className="p-6">
+        <h3 className="mb-2 text-xl font-bold text-skin-accent">{title}</h3>
+        <p className="mb-4 text-skin-base">{description}</p>
+
+        {/* Tags */}
+        {tags && tags.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {tags.map(tag => (
+              <span
+                key={tag}
+                className="rounded-full bg-skin-accent/10 px-3 py-1 text-sm text-skin-accent"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Links */}
+        <div className="flex gap-4">
+          {projectUrl && (
+            <a
+              href={projectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm font-medium text-skin-accent hover:underline"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              View Project
+            </a>
+          )}
+          {githubUrl && (
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm font-medium text-skin-accent hover:underline"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              GitHub
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

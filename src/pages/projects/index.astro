@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import ProjectCard from "@components/ProjectCard";
+import Hr from "@components/Hr.astro";
+import getSortedProjects from "@utils/getSortedProjects";
+import { SITE } from "@config";
+
+const allProjects = await getCollection("projects");
+
+// Filter out draft projects and sort by date (newest first)
+const publishedProjects = getSortedProjects(allProjects);
+
+const featuredProjects = publishedProjects.filter(
+  project => project.data.featured
+);
+const otherProjects = publishedProjects.filter(
+  project => !project.data.featured
+);
+---
+
+<Layout title={`Projects | ${SITE.title}`}>
+  <Header activeNav="projects" />
+  <main id="main-content">
+    <section id="projects-hero" class="pb-6 pt-8">
+      <h1 class="text-3xl font-bold sm:text-5xl">Projects</h1>
+      <p class="mt-4 text-skin-base">
+        A collection of my work, experiments, and side projects.
+      </p>
+    </section>
+
+    <Hr />
+
+    {
+      featuredProjects.length > 0 && (
+        <>
+          <section id="featured-projects" class="pb-6 pt-12">
+            <h2 class="mb-8 text-2xl font-semibold tracking-wide">
+              Featured Projects
+            </h2>
+            <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
+              {featuredProjects.map(project => (
+                <ProjectCard project={project} client:load />
+              ))}
+            </div>
+          </section>
+          {otherProjects.length > 0 && <Hr />}
+        </>
+      )
+    }
+
+    {
+      otherProjects.length > 0 && (
+        <section id="other-projects" class="pb-6 pt-12">
+          <h2 class="mb-8 text-2xl font-semibold tracking-wide">
+            {featuredProjects.length > 0 ? "More Projects" : "All Projects"}
+          </h2>
+          <div class="lg:grid-cols-3 grid gap-8 sm:grid-cols-2">
+            {otherProjects.map(project => (
+              <ProjectCard project={project} client:load />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      publishedProjects.length === 0 && (
+        <section class="pb-6 pt-12">
+          <p class="text-skin-base">No projects found.</p>
+        </section>
+      )
+    }
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  #projects-hero h1 {
+    @apply inline-block;
+  }
+</style>
