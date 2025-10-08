@@ -9,7 +9,7 @@ featured: false
 pubDatetime: 2023-09-05T00:00:00Z
 ---
 
-# Machine Learning Image Classifier
+# CSVQL
 
 A convolutional neural network for image classification with a user-friendly web interface.
 

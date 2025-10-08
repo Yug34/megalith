@@ -18,7 +18,7 @@ featured: false
 pubDatetime: 2024-03-20T00:00:00Z
 ---
 
-# Personal Blog & Portfolio
+# WASM-based Image editor
 
 Client-side image editor I made to experiment with FFmpeg on the client side using WebAssembly.
 
