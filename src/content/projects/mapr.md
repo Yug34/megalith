@@ -26,3 +26,4 @@ A high-performance implementation of Conway's Game of Life using Rust compiled t
 - Zustand
 - IndexedDB
 - TypeScript
+- Tailwind + ShadCN

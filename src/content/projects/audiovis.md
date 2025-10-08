@@ -1,5 +1,5 @@
 ---
-title: "RESTful API Backend"
+title: "Audiovis"
 description: "Scalable REST API built with modern frameworks, featuring authentication, rate limiting, and comprehensive documentation"
 projectImage: "../../assets/images/js.png"
 githubUrl: "https://github.com/Yug34"
@@ -10,20 +10,18 @@ pubDatetime: 2023-11-10T00:00:00Z
 
 # RESTful API Backend
 
-A production-ready REST API with comprehensive features for modern web applications.
+A Windows XP-like audio visualizer that Works with audio you upload from a file.
 
 ## Features
 
-- JWT authentication
-- Role-based access control
-- Rate limiting
-- API documentation with Swagger
-- Database migrations
-- Docker containerization
+- Upload and visualize any .mp3 file.
+- Control the visualization parameters to change patterns.
+- Rust+WASM processing.
 
 ## Tech Stack
 
-- Node.js & Express
-- PostgreSQL
-- Redis for caching
-- Docker & Docker Compose
+- React
+- Zustand
+- Rust
+- WebAssembly
+- Tailwind + ShadCN
