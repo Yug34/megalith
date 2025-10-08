@@ -1,10 +1,11 @@
 ---
 title: "Audiovis"
-description: "Scalable REST API built with modern frameworks, featuring authentication, rate limiting, and comprehensive documentation"
-projectImage: "../../assets/images/js.png"
-githubUrl: "https://github.com/Yug34"
-tags: ["Node.js", "Express", "PostgreSQL", "Docker"]
-featured: false
+description: "Windows XP inspired Audio visualizer made using Rust+WASM, Canvas and Web Audio API."
+projectImage: "../../assets/images/audioVis.png"
+githubUrl: "https://github.com/Yug34/audiovis"
+projectUrl: "https://audiovis-wheat.vercel.app/"
+# tags: ["React", "Zustand", "Rust", "WebAssembly", "Canvas", "ShadCN"]
+featured: true
 pubDatetime: 2023-11-10T00:00:00Z
 ---
 

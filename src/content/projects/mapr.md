@@ -4,7 +4,7 @@ description: "A mind mapping app. Supports PDFs, audio files, video files, image
 projectImage: "../../assets/images/mapr.png"
 githubUrl: "https://github.com/Yug34/mapr"
 projectUrl: "https://mapr-one.vercel.app/"
-tags: ["React", "TypeScript", "JavaScript", "Zustand", "Canvas API"]
+# tags: ["React", "TypeScript", "JavaScript", "Zustand", "Canvas API"]
 featured: true
 pubDatetime: 2024-01-15T00:00:00Z
 ---
