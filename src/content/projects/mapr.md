@@ -11,13 +11,23 @@ pubDatetime: 2024-01-15T00:00:00Z
 
 # .mapr
 
-A high-performance implementation of Conway's Game of Life using Rust compiled to WebAssembly.
+Essentially a light clone of Miro. I made this because Miro itself does not support adding videos to it directly.
+
+I wanted to add videos to my mind maps, so I made this!
 
 ## Features
 
 - .mapr supports displaying images, audio, video & PDF files.
-- No account creation needed, everything is stored in IndexedDB for persistence.
-- Node and canvas interactions.
+- Everything is stored in IndexedDB for persistence.
+- ^ So no account/sign-up needed for persistence (unless you switch browsers).
+- **Node interactions:**
+  - Delete nodes
+  - Connect nodes through edges
+  - Duplicate nodes
+- **Canvas interactions:**
+  - Pan around canvas
+  - Zoom in/out of canvas
+- Create multiple tabs in the canvas, switch tabs.
 
 ## Tech Stack
 

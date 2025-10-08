@@ -24,11 +24,11 @@ Client-side image editor I made to experiment with FFmpeg on the client side usi
 
 ## Features
 
-- Add text to image
+- **Add text to image**
   - Change color, size, and font-face of the text
-- Add a border/frame to image
+- **Add a border/frame to image**
   - Change color and size of border
-- Undo Edits serially
-- Revert and apply new edit on a previous edit
+- Functionality to undo applied edits serially
+- ...and revert and apply new edit on a previous edit
 - Add greyscale filter to image
-- Download Edited Image
+- Download edited Image
