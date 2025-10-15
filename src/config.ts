@@ -2,10 +2,10 @@ import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
   website: "https://github.com/Yug34",
-  author: "Yug Gajjar",
+  author: "Yug",
   profile: "https://github.com/Yug34",
   desc: "Home.",
-  title: "Yug Gajjar",
+  title: "Yug",
   ogImage: "yjg.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,

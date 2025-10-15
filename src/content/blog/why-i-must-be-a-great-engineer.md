@@ -1,5 +1,5 @@
 ---
-author: Yug Gajjar
+author: Yug
 pubDatetime: 2025-02-15T15:22:00Z
 modDatetime: 2025-02-15T09:12:47.400Z
 title: Why must I become a great engineer

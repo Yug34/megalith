@@ -1,5 +1,5 @@
 ---
-author: Yug Gajjar
+author: Yug
 pubDatetime: 2023-10-15T09:22:00Z
 modDatetime: 2023-10-15T09:12:47.400Z
 title: "YDKTS: Nominal Types"

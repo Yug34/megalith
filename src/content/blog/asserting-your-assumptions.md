@@ -1,5 +1,5 @@
 ---
-author: Yug Gajjar
+author: Yug
 pubDatetime: 2025-02-21T15:22:00Z
 modDatetime: 2025-02-21T09:12:47.400Z
 title: 'Throwing tests into code: Assert your assumptions'
