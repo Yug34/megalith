@@ -32,12 +32,12 @@ export const LOGO_IMAGE = {
 };
 
 export const SOCIALS: SocialObjects = [
-  // {
-  //   name: "Instagram",
-  //   href: "https://www.instagram.com/stfyug_/",
-  //   linkTitle: `${SITE.title} on Instagram`,
-  //   active: true,
-  // },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/stfyug_/",
+    linkTitle: `${SITE.title} on Instagram`,
+    active: true,
+  },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/yug34/",
