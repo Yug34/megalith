@@ -1,6 +1,6 @@
 ---
 title: ".mapr"
-description: "A mind mapping app like Miro. Supports PDFs, audio files, video files, images, text nodes and such."
+description: "An AI-enabled mind-mapping workspace to organize your creative workflows and manage tasks. Similar to Miro with added AI support, and support for PDFs, audio, video, images, text nodes and such."
 projectImage: "../../assets/images/mapr.png"
 githubUrl: "https://github.com/Yug34/mapr"
 projectUrl: "https://mapr-one.vercel.app/"
@@ -11,13 +11,15 @@ pubDatetime: 2024-01-15T00:00:00Z
 
 # .mapr
 
-Essentially a light clone of Miro. I made this because Miro itself does not support adding videos to it directly.
+An AI-enabled mind-mapping workspace to organize your creative workflows and manage tasks. I made this because Miro itself does not support adding videos to it directly, and it has no AI support to help you navigate the workspace.
 
-I wanted to add videos to my mind maps, so I made this!
+...so I made this!:
 
 ## Features
 
-- .mapr supports displaying images, audio, video & PDF files.
+- .mapr allows you to persist large sets of data without cloud -- full offline suppoert.
+- .mapr lets you summarize large pieces of text using AI.
+- The app supports displaying task-tracking, images, audio, video & PDF files.
 - Everything is stored in IndexedDB for persistence.
 - ^ So no account/sign-up needed for persistence (unless you switch browsers).
 - **Node interactions:**
@@ -34,6 +36,8 @@ I wanted to add videos to my mind maps, so I made this!
 - React
 - React Flow
 - Zustand
-- IndexedDB
+- SQLite
+- WebAssembly
+- OpenAI API
 - TypeScript
 - Tailwind + ShadCN
