@@ -4,7 +4,7 @@ export const SITE: Site = {
   website: "https://github.com/Yug34",
   author: "Yug",
   profile: "https://github.com/Yug34",
-  desc: "Home.",
+  desc: "Welcome back home.",
   title: "Yug",
   ogImage: "yjg.jpg",
   lightAndDarkMode: true,
